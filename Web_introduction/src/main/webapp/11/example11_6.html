@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>폼으로 원호 그리기</title>
+<style>
+td {
+	text-align : right;
+	padding-left : 5px;
+	padding-right : 5px;
+}
+</style>
+<script>
+function draw() {
+
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+
+	var x = document.getElementById("x").value;
+	var y = document.getElementById("y").value;
+	var radius = document.getElementById("radius").value;
+	var startangle = document.getElementById("startangle").value;
+	var finishangle = document.getElementById("finishangle").value;
+	var lineWidth = document.getElementById("lineWidth").value;
+	var strokeStyle = document.getElementById("strokeStyle").value;	
+
+	var way = document.getElementById("way").value;	
+	if(way == "시계방향"){
+		way = false
+	}
+	else{
+		way = true
+	}
+
+
+	context.beginPath();
+	context.arc(x, y, radius, (startangle/180)*Math.PI, (finishangle/180)*Math.PI, way);
+	context.lineWidth = lineWidth;
+	context.strokeStyle = strokeStyle;
+	context.stroke();
+}
+function erase() {
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+	context.clearRect(0, 0, canvas.width, canvas.height);
+}
+</script>
+</head>
+<body>
+</body>
+<h3>폼으로 원호 그리기</h3>
+<hr>
+<form>
+<table>
+<tr><td><label>x <input id="x" type="number" value="70"></label></td>
+	<td><label>y <input id="y" type="number" value="100"></label></td></tr>
+<tr><td><label>반지름 <input id="radius" type="number" value="50"></label></td>
+	<td><label>방향 <input id = "way" type="text" list = "clock"></label></td></tr>
+	<datalist id = "clock">
+		<option value = "시계방향">
+		<option value = "반시계방향">
+	</datalist>
+<tr><td><label>시작각도 <input id="startangle" type="number" value="0"></label></td>
+	<td><label>끝각도 <input id="finishangle" type="number" value="180"></label></td></tr>
+<tr><td><label>선굵기 <input id="lineWidth" type="number" value="1"></label></td>
+	<td><label>선색 <input id="strokeStyle" type="color" value="#000000"></label></td></tr>
+<tr><td><label><button type="button" onclick="draw()">그리기</button></label></td>
+	<td><button type="button" onclick="erase()">지우기</button></td></tr>
+</table>
+</form>
+<canvas id="myCanvas" width="500" height="200" 
+        style="background-color:aliceblue"></canvas>
+</html>
+
